@@ -17,11 +17,11 @@ jobs:
       # 4. Build the project 
       - name: Build the project
         run: |
-          docker run -v $(pwd):/app/books -v $(pwd)/_site:/app/_site  ghcr.io/ginqi7/11ty-createbook npx eleventy 
+          docker run -e CREATEBOOK_BASE="/${{ github.event.repository.name }}/" -v $(pwd):/app/books -v $(pwd)/../_site:/app/_site  ghcr.io/ginqi7/11ty-createbook npx eleventy 
 
       # 5. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site  
+          publish_dir: ../_site  
